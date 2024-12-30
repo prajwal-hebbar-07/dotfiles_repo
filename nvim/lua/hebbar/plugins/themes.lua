@@ -34,7 +34,18 @@ return {
         end,
       })
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
+      vim.cmd("colorscheme tokyonight")
     end,
   },
+  -- {
+  --   "olimorris/onedarkpro.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     require("onedarkpro").setup({
+  --       transparent = true,
+  --       style = "dark"
+  --     })
+  --     vim.cmd("colorscheme onedarkpro")
+  --   end
+  -- }
 }
