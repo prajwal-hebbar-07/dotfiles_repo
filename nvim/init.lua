@@ -15,4 +15,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("hebbar.plugins")
-require("hebbar.core")
+require("hebbar.core.options")
+require("hebbar.core.keymaps")

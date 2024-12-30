@@ -2,8 +2,8 @@
 local keymap = vim.keymap
 
 -- Exit from insert mode 
-ketmap.set("i", "jk", "<ESC>", { desc = "Exit from insert mode" })
-ketmap.set("i", "hj", "<ESC>", { desc = "Exit from insert mode" })
+keymap.set("i", "jk", "<ESC>", { desc = "Exit from insert mode" })
+keymap.set("i", "hj", "<ESC>", { desc = "Exit from insert mode" })
 
 -- CLear search highlights
 keymap.set("n", "<leader>h", ":nohl<CR>", { desc = "Clear Search Highlights" })
@@ -23,11 +23,12 @@ keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete the Selected Text and Pa
 keymap.set({"n", "v"}, "<leader>d", "\"_d", { desc = "Delete the Text into the Blackhole Register" })
 
 -- Copy to clipboard
-keymap.set({"n", "v"}, "<leader>y", [["+y]], desc = { "Copy the Selected Block into Clipboard" })
-keymap.set("n", "<leader>Y", [["+Y]], desc = { "Copy the Line the Cursor is on into Clipboard" })
+keymap.set({"n", "v"}, "<leader>y", [["+y]],  { desc = "Copy the Selected Block into Clipboard" })
+keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy the Line the Cursor is on into Clipboard" })
 
 -- Convenient Keymap
 keymap.set("n", "Q", "<nop>")
 
 -- Find and Replace shortcut
-keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], desc = { "Find the Term and Replace" })
+keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Find the Term and Replace" })
+
