@@ -61,27 +61,7 @@ return {
           notify = false,
           use_treesitter = true,
           support_filetypes = {
-            -- Web Development
-            "html",
-            "css",
-            "scss",
-            "javascript",
-            "typescript",
-            "javascriptreact",
-            "typescriptreact",
-            "vue",
-            "svelte",
-            "json",
-            "jsonc",
-            "graphql",
-            -- Backend
-            "python",
-            "go",
-            -- Configuration
-            "yaml",
-            "dockerfile",
-            "lua",
-            "*",
+            "*", -- Support all filetypes
           },
           chars = {
             horizontal_line = "─",
@@ -96,24 +76,13 @@ return {
           },
         },
         indent = {
-          enable = true,
-          use_treesitter = true,
-          chars = { "│" },
-          style = {
-            { fg = "#3b3b3b" },
-          },
+          enable = false,          -- Disable global indent markers
         },
         line_num = {
-          enable = true,
-          use_treesitter = true,
-          style = "#806d9c",
+          enable = false,          -- Disable line number highlighting
         },
         blank = {
-          enable = true,
-          chars = { "․" },
-          style = {
-            vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-          },
+          enable = false,          -- Disable blank space visualization
         },
       })
 
