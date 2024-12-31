@@ -28,11 +28,10 @@ return {
       less = { "prettier" },
       json = { "prettier" },
       jsonc = { "prettier" },
-      yaml = { "yamlfmt" },
 
       -- Backend
       python = { "isort", "black" },
-      go = { "gofmt", "goimports" },
+      go = { "goimports", "gofumpt" },  -- Updated Go formatters
 
       -- Configuration & Documentation
       markdown = { "prettier" },
@@ -81,37 +80,75 @@ return {
       },
     },
   },
-  init = function()
-    -- Ensure formatters are installed
-    local mason_registry = require("mason-registry")
-
-    -- List of formatters to install
+  dependencies = {
+    "williamboman/mason.nvim",
+    "folke/which-key.nvim",
+  },
+  config = function()
+    -- List of formatters that can be installed via Mason
     local ensure_installed = {
       "prettier",
       "eslint_d",
       "black",
       "isort",
       "stylua",
-      "gofmt",
+      "gofumpt", -- Updated from gofmt
       "goimports",
       "hadolint",
-      "yamlfmt",
     }
 
-    -- Install missing formatters
-    for _, formatter in ipairs(ensure_installed) do
-      if not mason_registry.is_installed(formatter) then
-        vim.cmd("MasonInstall " .. formatter)
+    -- Setup conform.nvim
+    require("conform").setup({
+      formatters_by_ft = {
+        -- Frontend
+        javascript = { "prettier", "eslint_d" },
+        typescript = { "prettier", "eslint_d" },
+        javascriptreact = { "prettier", "eslint_d" },
+        typescriptreact = { "prettier", "eslint_d" },
+        svelte = { "prettier", "eslint_d" },
+        vue = { "prettier", "eslint_d" },
+        html = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        less = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+
+        -- Backend
+        python = { "isort", "black" },
+        go = { "goimports", "gofumpt" },
+
+        -- Configuration & Documentation
+        markdown = { "prettier" },
+        lua = { "stylua" },
+        dockerfile = { "hadolint" },
+
+        -- Fallback
+        ["*"] = { "trim_whitespace", "trim_newlines" },
+      },
+    })
+
+    -- Ensure formatters are installed
+    local function ensure_formatters()
+      local registry = require("mason-registry")
+      for _, tool in ipairs(ensure_installed) do
+        if not registry.is_installed(tool) then
+          vim.notify("Installing formatter: " .. tool)
+          local pkg = registry.get_package(tool)
+          pkg:install():once("closed", function()
+            if pkg:is_installed() then
+              vim.notify("Installed " .. tool)
+            else
+              vim.notify("Failed to install " .. tool, vim.log.levels.ERROR)
+            end
+          end)
+        end
       end
     end
 
-    -- Register custom key command group
-    local wk = require("which-key")
-    wk.register({
-      f = {
-        m = "Format buffer",
-        name = "Format",
-      },
-    }, { prefix = "<leader>" })
-  end,
+    -- Schedule the installation of formatters
+    vim.defer_fn(function()
+      ensure_formatters()
+    end, 100)
+  end
 }

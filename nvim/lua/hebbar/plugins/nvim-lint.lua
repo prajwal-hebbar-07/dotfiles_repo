@@ -35,7 +35,7 @@ return {
       -- Docker and Configuration
       dockerfile = { "hadolint" },
       yaml = { "yamllint" },
-      
+
       -- Smart Contract Development
       solidity = { "solhint" },
 
@@ -68,7 +68,7 @@ return {
         "--format=text",
         "--select=E,F,W,I,N,B,A,C4,RUF,ERA,UP",
         "--ignore=E501", -- Skip line length violations
-        "-" 
+        "-"
       }
     end
 
@@ -112,9 +112,9 @@ return {
 
         -- Don't lint certain directories
         local filepath = vim.api.nvim_buf_get_name(0)
-        if filepath:match("node_modules") or 
-           filepath:match("dist") or 
-           filepath:match("build") or 
+        if filepath:match("node_modules") or
+           filepath:match("dist") or
+           filepath:match("build") or
            filepath:match(".next") then
           return
         end
@@ -173,18 +173,5 @@ return {
         vim.api.nvim_clear_autocmds({ group = lint_augroup })
       end
     end, { desc = "Toggle auto-linting" })
-
-    -- Register which-key group
-    local ok, wk = pcall(require, "which-key")
-    if ok then
-      -- wk.register({
-      --   ["<leader>l"] = {
-      --     name = "Linting",
-      --     l = "Lint and show diagnostics",
-      --     f = "Fix linting issues",
-      --     t = "Toggle auto-linting",
-      --   },
-      -- })
-    end
   end,
 }

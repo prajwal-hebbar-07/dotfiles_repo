@@ -1,7 +1,9 @@
 return {
+  -- Plenary is required by many plugins
   "nvim-lua/plenary.nvim",
+
+  -- Mason package manager configuration
   {
-    {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -25,7 +27,7 @@ return {
 
         -- DAP (Debuggers)
         "js-debug-adapter", -- JavaScript/TypeScript
-        "python-debug-adapter", -- Python
+        "debugpy", -- Python debugger (replacing python-debug-adapter)
         "delve", -- Go
 
         -- Formatters
@@ -82,6 +84,5 @@ return {
         ensure_installed()
       end
     end,
-  },
   }
 }
