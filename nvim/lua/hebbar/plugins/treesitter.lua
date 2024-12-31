@@ -48,7 +48,6 @@ return {
             "svelte",
             "vue",
             "tsx",
-            "jsx",
             "markdown",
             "mdx",
           },
@@ -141,8 +140,7 @@ return {
           "graphql",
           "prisma",
 
-          -- React & Next.js specific
-          "jsx",
+          -- React specific
           "regex",
           "jsdoc",
 
@@ -200,13 +198,9 @@ return {
       vim.opt.foldlevel = 99
       vim.opt.foldtext = [[substitute(getline(v:foldstart),'\\t','  ','g').'...'.trim(getline(v:foldend))]]
 
-      -- Context commentstring setup
-      require("nvim-treesitter.configs").setup({
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
-      })
+      -- Setup context-based commenting
+      vim.g.skip_ts_context_commentstring_module = true
+      require("ts_context_commentstring").setup({})
 
       -- Autopairs setup
       require("nvim-autopairs").setup({
